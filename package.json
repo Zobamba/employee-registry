@@ -1,0 +1,38 @@
+{
+  "name": "employee-registry",
+  "version": "1.0.0",
+  "description": "Employee Registry",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -r esm index.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "undo-migration": "npx sequelize-cli db:migrate:undo",
+    "undo-specific": "npx sequelize-cli db:migrate:undo --name"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zobamba/employee-registry.git"
+  },
+  "author": "Zoba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zobamba/employee-registry/issues"
+  },
+  "homepage": "https://github.com/Zobamba/employee-registry#readme",
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.6.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "password-hash": "^1.2.2",
+    "sequelize": "^6.31.1"
+  }
+}
