@@ -156,6 +156,21 @@ class EmployeeController {
       }
     });
   }
+
+  getEmployeeByIdParam(req, res) {
+    employee.findOne({
+      include: [{
+        model: emergencyContact,
+      }],
+      where: { id: req.params.id },
+    }).then((responseData) => {
+      if (responseData) {
+        res.status(200).send({ employee: responseData });
+      } else {
+        res.status(404).send({ message: 'Employee not found' });
+      }
+    });
+  }
 }
 
 export default new EmployeeController();

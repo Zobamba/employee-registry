@@ -7,4 +7,5 @@ export default function employeeRoutes(app) {
     app.get('/employees', EmployeeController.getEmployees);
     app.put('/employee/:id', validParamId, EmployeeFormConstraints, validateFormData, EmployeeController.UpdateEmployee, EmployeeController.updateEmployeeContacts);
     app.delete('/employee/:id', validParamId, EmployeeController.deleteEmployee);
+    app.get('/employee/:id', validParamId, EmployeeController.getEmployeeByIdParam);
 }
