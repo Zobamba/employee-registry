@@ -140,6 +140,22 @@ class EmployeeController {
       });
     });
   }
+
+  deleteEmployee(req, res) {
+    employee.destroy({
+      where: { id: req.params.id },
+    }).then((deleted) => {
+      if (deleted) {
+        res.status(200).send({
+          message: 'Employee successfully deleted',
+        });
+      } else {
+        res.status(404).send({
+          message: 'Employee not found',
+        });
+      }
+    });
+  }
 }
 
 export default new EmployeeController();

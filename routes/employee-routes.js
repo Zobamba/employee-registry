@@ -5,5 +5,6 @@ import { validParamId } from '../middlewares/validate-param-id';
 export default function employeeRoutes(app) {
     app.post('/employee', EmployeeFormConstraints, validateFormData, EmployeeController.postEmployee, EmployeeController.mapEmployeeToContacts);
     app.get('/employees', EmployeeController.getEmployees);
-    app.put('/employee/:id',  validParamId, EmployeeFormConstraints, validateFormData, EmployeeController.UpdateEmployee, EmployeeController.updateEmployeeContacts);
+    app.put('/employee/:id', validParamId, EmployeeFormConstraints, validateFormData, EmployeeController.UpdateEmployee, EmployeeController.updateEmployeeContacts);
+    app.delete('/employee/:id', validParamId, EmployeeController.deleteEmployee);
 }

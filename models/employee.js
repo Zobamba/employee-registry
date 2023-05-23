@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'employee',
+    paranoid: true
   });
   employee.associate = (models) => {
     employee.hasMany(models.emergencyContact);
