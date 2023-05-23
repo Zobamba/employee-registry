@@ -18,7 +18,7 @@ const port = 3000;
 
 // Homepage route
 app.get('/', (req, res) => {
-  res.send('Welcome to Employee Registry');
+    res.send('Welcome to Employee Registry');
 });
 
 routes(app);
