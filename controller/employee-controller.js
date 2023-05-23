@@ -50,6 +50,30 @@ class EmployeeController {
       res.status(400).send({ message: error.name });
     });
   }
+
+  getEmployees(req, res) {
+    const { limit, offset } = req.query;
+    const queryLimit = limit || 5;
+    const queryOffset = offset || 0;
+
+    employee.count().then((count) => {
+      employee.findAll({
+        include: [{
+          model: emergencyContact,
+        }],
+        limit: queryLimit,
+        offset: queryOffset,
+        order: [['id', 'ASC']],
+      }).then((employees) => {
+        res.status(200).send({
+          employees,
+          count,
+          limit: queryLimit,
+          offset: queryOffset,
+        });
+      });
+    });
+  }
 }
 
 export default new EmployeeController();

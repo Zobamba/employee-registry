@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     relationship: DataTypes.STRING
-  }, { paranoid: true });
+  });
   emergencyContact.associate = (models) => {
     emergencyContact.belongsTo(models.employee, {
       foreignKey: 'employeeId',
