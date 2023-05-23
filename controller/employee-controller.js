@@ -74,6 +74,72 @@ class EmployeeController {
       });
     });
   }
+
+  UpdateEmployee(req, res, next) {
+    const {
+      fullName,
+      jobTitle,
+      phoneNumber,
+      email,
+      address,
+      city,
+      state
+    } = req.body;
+
+    employee.findOne({ where: { id: req.params.id } }).then((existingEmployee) => {
+      if (existingEmployee) {
+        employee.update(
+          {
+            fullName,
+            jobTitle,
+            phoneNumber,
+            email,
+            address,
+            city,
+            state
+          },
+          { where: { id: req.params.id }, returning: true },
+        ).then((updatedEmployee) => {
+
+          req.employee = updatedEmployee;
+          req.contacts = req.body.contacts;
+
+          return next();
+
+        });
+      } else {
+        res.status(404).send({ message: 'Employee not found' });
+      }
+    });
+  }
+
+  updateEmployeeContacts(req, res) {
+    emergencyContact.destroy({ where: { employeeId: req.params.id } }).then(() => {
+      const newContacts = [];
+      const { contacts } = req;
+
+      contacts.forEach((contact) => {
+        newContacts.push({
+          employeeId: req.params.id,
+          title: contact.title,
+          phoneNumber: contact.phoneNumber,
+          relationship: contact.relationship
+        });
+      });
+
+      emergencyContact.bulkCreate(newContacts).then(() => {
+        employee.findOne({
+          include: [{ model: emergencyContact }],
+          where: { id: req.params.id },
+        }).then((updated) => {
+          res.status(200).send({
+            message: 'Employee successfully updated',
+            employee: updated
+          });
+        });
+      });
+    });
+  }
 }
 
 export default new EmployeeController();
